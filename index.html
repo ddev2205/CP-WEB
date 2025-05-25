@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CP Practice Hub - 16 Week Journey</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="favicon.ico" rel="icon"/>
+<style>
+    /* No collapse functionality */
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+        body{background:#121212;min-height:100vh;color:#e0e0e0;font-family:'Poppins',sans-serif;}
+        div{color:#e0e0e0;}
+        .card{border:2px solid #333;border-radius:16px;background:#1e1e1e;margin-bottom:16px;overflow:hidden;}
+        .card-header{background:#252525;border-bottom:1px solid #333;padding:12px 16px;}
+        .card-body{background:#1e1e1e;color:#e0e0e0;padding:16px;}
+        .problem-card{cursor:pointer;transition:all 0.3s;background:#252525;border:2px solid #444;border-radius:16px;overflow:hidden;}
+        .problem-card .card-body{border-radius:0;}
+        .problem-card:hover{transform:translateY(-2px);box-shadow:0 0 15px rgba(40, 0, 238, 0.6);}
+        .solved{background:#1a3a2a;border:4px solid #28a745!important;position:relative;}
+        .solved::after{content:"✓";position:absolute;top:10px;right:10px;color:#28a745;font-size:18px;font-weight:bold;opacity:0;animation:fadeIn 0.5s ease-in-out forwards;}
+        @keyframes fadeIn{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
+        .btn{border-radius:15px;transition:all 0.3s ease;}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 0 10px rgba(255,255,255,0.3);}
+        .btn-danger:hover{box-shadow:0 0 10px rgba(255,59,48,0.5);}
+        .btn-info:hover{box-shadow:0 0 10px rgba(0,199,190,0.5);}
+        .btn-warning:hover{box-shadow:0 0 10px rgba(255,204,0,0.5);}
+        .btn-secondary:hover{box-shadow:0 0 10px rgba(142,142,147,0.5);}
+        .video-grid .card{border-radius:20px;overflow:hidden;}
+        .video-grid .card-body{border-radius:18px;}
+        .btn-sm{font-size:0.75rem;padding:0.25rem 0.5rem;}
+        .phase-header{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#e0e0e0;cursor:default;}
+        .stats-fixed{position:fixed;top:20px;right:20px;z-index:1000;min-width:200px;background:#252525;}
+        @media(max-width:768px){.stats-fixed{position:static;margin:1rem 0;}}
+        .bg-purple{background-color:#6f42c1!important;}
+        .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;}
+        .text-muted{color:#aaaaaa !important;}
+        .text-primary{color:#58a6ff !important;}
+        h1, h5, h6{color:#e0e0e0;}
+        .btn-primary{background:#0d6efd;border-color:#0d6efd;}
+        .btn-primary:hover{background:#0b5ed7;border-color:#0a58ca;}
+        .form-control{background:#333;border-color:#444;color:#e0e0e0;}
+        .form-control:focus{background:#444;color:#fff;border-color:#0d6efd;box-shadow:0 0 0 0.25rem rgba(13,110,253,0.25);}
+        .form-control::placeholder{color:#888;}
+        .collapse{display:block !important;}
+        
+        /* Enhanced header styling */
+        .card-body h1.text-primary {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #58a6ff, #6f42c1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+        }
+        
+        .card-body p.text-muted {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .bg-primary.text-white.rounded-pill {
+            background: linear-gradient(45deg, #0d6efd, #6f42c1) !important;
+            border: none;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+            font-weight: 500;
+            padding: 0.5rem 1.5rem !important;
+            transition: all 0.3s ease;
+        }
+        
+        .bg-primary.text-white.rounded-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+        }
+        
+        .progress {
+            height: 10px;
+            border-radius: 10px;
+            background: #2a2a2a;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1.5rem;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+        }
+        
+        #searchBox {
+            border-radius: 30px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        #searchBox:focus {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid p-3">
+<!-- Header -->
+<div class="card mb-4">
+<div class="card-body text-center">
+<h1 class="text-primary">🚀 CP Practice Hub</h1>
+<p class="text-muted">16-Week Journey to Contest Success</p>
+<div class="bg-primary text-white rounded-pill d-inline-block px-3 py-1 mb-3">
+                    Day: <span id="currentDay">1</span> | Progress: <span id="progressPercent">0</span>%
+                </div>
+<div class="progress mb-3">
+<div class="progress-bar bg-success" id="progressFill" style="width:0%"></div>
+</div>
+<input class="form-control" id="searchBox" placeholder="🔍 Search problems..." type="text"/>
+</div>
+</div>
+<!-- Stats Panel -->
+<div class="card stats-fixed">
+<div class="card-body">
+<h6>📈 Stats</h6>
+<div class="d-flex justify-content-between"><span>Solved:</span><strong id="solvedCount">0</strong></div>
+<div class="d-flex justify-content-between"><span>Total:</span><strong>400+</strong></div>
+<div class="d-flex justify-content-between"><span>Rate:</span><strong id="successRate">0%</strong></div>
+</div>
+</div>
+<!-- Phase 1: Fundamentals -->
+<div class="card mb-4" id="phase1">
+<div class="card-header phase-header">
+<h5 class="mb-0">📚 Phase 1: Fundamentals (June 8 - July 5)</h5>
+</div>
+<div class="collapse" id="phase1Content">
+<div class="card-body">
+<!-- Learning Videos -->
+<div class="card mb-3">
+<div class="card-header bg-success text-white">
+<h6 class="mb-0">📹 Essential Learning Videos</h6>
+</div>
+<div class="card-body">
+<div class="video-grid">
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-danger mb-2">📹 Video</span>
+<h6>C++ STL Complete Course</h6>
+<p class="small text-muted">Master vectors, strings, sets, maps, algorithms</p>
+<a class="btn btn-sm btn-danger w-100" href="https://www.youtube.com/watch?v=RRVYpIET_RU" target="_blank">Watch Now</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-info mb-2">📖 Doc</span>
+<h6>STL Reference Guide</h6>
+<p class="small text-muted">Complete GeeksforGeeks STL documentation</p>
+<a class="btn btn-sm btn-info w-100" href="https://www.geeksforgeeks.org/the-c-standard-template-library-stl/" target="_blank">Read Guide</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-warning mb-2">📹 Video</span>
+<h6>Fast I/O for Competitive Programming</h6>
+<p class="small text-muted">Optimize input/output for better performance</p>
+<a class="btn btn-sm btn-warning w-100" href="https://www.youtube.com/watch?v=G4-3JtfMUmo" target="_blank">Learn I/O</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-secondary mb-2">📹 Video</span>
+<h6>C++ Basics for CP</h6>
+<p class="small text-muted">Essential C++ concepts for competitive programming</p>
+<a class="btn btn-sm btn-secondary w-100" href="https://www.youtube.com/watch?v=zuegQmMdy8M" target="_blank">Watch</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Week 1 -->
+<div class="card mb-3">
+<div class="card-header">
+<h6 class="mb-0">Week 1: STL &amp; Basic Implementation</h6>
+</div>
+<div class="collapse" id="week1">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Beautiful Year</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-purple">Codeforces</span>
+<span class="badge bg-warning">800</span>
+</div>
+<div class="btn-group w-100" role="group">
+<button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openProblem('https://codeforces.com/problemset/problem/271/A')">Solve</button>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Way Too Long Words</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-purple">Codeforces</span>
+<span class="badge bg-warning">800</span>
+</div>
+<div class="btn-group w-100" role="group">
+<button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openProblem('https://codeforces.com/problemset/problem/71/A')">Solve</button>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Team</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-purple">Codeforces</span>
+<span class="badge bg-warning">800</span>
+</div>
+<div class="btn-group w-100" role="group">
+<button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openProblem('https://codeforces.com/problemset/problem/231/A')">Solve</button>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Watermelon</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-purple">Codeforces</span>
+<span class="badge bg-warning">800</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://codeforces.com/problemset/problem/4/A')">Solve</button>
+</div>
+</div>
+</div><div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Bit++</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-purple">Codeforces</span>
+<span class="badge bg-warning">800</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://codeforces.com/problemset/problem/282/A')">Solve</button>
+</div>
+</div>
+</div><div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Petya and Strings</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-purple">Codeforces</span>
+<span class="badge bg-warning">800</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://codeforces.com/problemset/problem/112/A')">Solve</button>
+</div>
+</div>
+</div><div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Boy or Girl</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-purple">Codeforces</span>
+<span class="badge bg-warning">800</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://codeforces.com/problemset/problem/236/A')">Solve</button>
+</div>
+</div>
+</div><div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Stones on the Table</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-purple">Codeforces</span>
+<span class="badge bg-warning">800</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://codeforces.com/problemset/problem/266/A')">Solve</button>
+</div>
+</div>
+</div><div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Next Round</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-purple">Codeforces</span>
+<span class="badge bg-warning">800</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://codeforces.com/problemset/problem/158/A')">Solve</button>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#week2" data-bs-toggle="collapse">
+<h6 class="mb-0">Week 2: Arrays & Strings</h6>
+</div>
+<div class="collapse" id="week2">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Two Sum</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/two-sum/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Valid Anagram</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/valid-anagram/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Contains Duplicate</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/contains-duplicate/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Valid Parentheses</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/valid-parentheses/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Group Anagrams</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/group-anagrams/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Product of Array Except Self</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/product-of-array-except-self/')">Solve</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Phase 2: Core Algorithms -->
+<div class="card mb-4" id="phase2">
+<div class="card-header phase-header" data-bs-target="#phase2Content" data-bs-toggle="collapse">
+<h5 class="mb-0">🔍 Phase 2: Core Algorithms (July 6 - August 2)</h5>
+</div>
+<div class="collapse" id="phase2Content">
+<div class="card-body">
+<!-- Learning Videos -->
+<div class="card mb-3">
+<div class="card-header bg-success text-white">
+<h6 class="mb-0">📹 Essential Learning Videos</h6>
+</div>
+<div class="card-body">
+<div class="video-grid">
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-danger mb-2">📹 Video</span>
+<h6>Binary Search Complete Tutorial</h6>
+<p class="small text-muted">Master binary search and its applications</p>
+<a class="btn btn-sm btn-danger w-100" href="https://www.youtube.com/watch?v=GU7DpgHINWQ" target="_blank">Watch</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-info mb-2">📖 Doc</span>
+<h6>Binary Search Guide</h6>
+<p class="small text-muted">Complete binary search documentation</p>
+<a class="btn btn-sm btn-info w-100" href="https://www.geeksforgeeks.org/binary-search/" target="_blank">Read</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-warning mb-2">📹 Video</span>
+<h6>Sorting Algorithms</h6>
+<p class="small text-muted">Quick sort, merge sort, heap sort explained</p>
+<a class="btn btn-sm btn-warning w-100" href="https://www.youtube.com/watch?v=kPRA0W1kECg" target="_blank">Watch</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-secondary mb-2">📹 Video</span>
+<h6>Two Pointers Technique</h6>
+<p class="small text-muted">Master the two pointers approach</p>
+<a class="btn btn-sm btn-secondary w-100" href="https://www.youtube.com/watch?v=On03HWe2tZM" target="_blank">Learn</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#week3" data-bs-toggle="collapse">
+<h6 class="mb-0">Week 3: Binary Search &amp; Sorting</h6>
+</div>
+<div class="collapse" id="week3">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Binary Search</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/binary-search/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Search Insert Position</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/search-insert-position/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">First Bad Version</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/first-bad-version/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Find Minimum in Rotated Sorted Array</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Merge Intervals</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/merge-intervals/')">Solve</button>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#week4" data-bs-toggle="collapse">
+<h6 class="mb-0">Week 4: Two Pointers & Sliding Window</h6>
+</div>
+<div class="collapse" id="week4">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Valid Palindrome</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/valid-palindrome/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">3Sum</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/3sum/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Container With Most Water</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/container-with-most-water/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Longest Substring Without Repeating Characters</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/longest-substring-without-repeating-characters/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Minimum Size Subarray Sum</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/minimum-size-subarray-sum/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Trapping Rain Water</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-danger">Hard</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/trapping-rain-water/')">Solve</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Phase 3: Dynamic Programming -->
+<div class="card mb-4" id="phase3">
+<div class="card-header phase-header" data-bs-target="#phase3Content" data-bs-toggle="collapse">
+<h5 class="mb-0">🧠 Phase 3: Dynamic Programming (August 3-30)</h5>
+</div>
+<div class="collapse" id="phase3Content">
+<div class="card-body">
+<!-- Learning Videos -->
+<div class="card mb-3">
+<div class="card-header bg-success text-white">
+<h6 class="mb-0">📹 Essential Learning Videos</h6>
+</div>
+<div class="card-body">
+<div class="video-grid">
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-danger mb-2">📹 Video</span>
+<h6>Dynamic Programming Complete Course</h6>
+<p class="small text-muted">DP from basics to advanced concepts</p>
+<a class="btn btn-sm btn-danger w-100" href="https://www.youtube.com/watch?v=oBt53YbR9Kk" target="_blank">Watch</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-info mb-2">📖 Doc</span>
+<h6>DP Patterns &amp; Techniques</h6>
+<p class="small text-muted">Comprehensive DP guide with patterns</p>
+<a class="btn btn-sm btn-info w-100" href="https://www.geeksforgeeks.org/dynamic-programming/" target="_blank">Read</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-warning mb-2">📹 Video</span>
+<h6>Memoization vs Tabulation</h6>
+<p class="small text-muted">Top-down vs bottom-up DP approaches</p>
+<a class="btn btn-sm btn-warning w-100" href="https://www.youtube.com/watch?v=P8Xa2BitN3I" target="_blank">Learn</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-secondary mb-2">📹 Video</span>
+<h6>DP Optimization Techniques</h6>
+<p class="small text-muted">Space and time optimization in DP</p>
+<a class="btn btn-sm btn-secondary w-100" href="https://www.youtube.com/watch?v=lVR2u9lsRvw" target="_blank">Optimize</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#week5" data-bs-toggle="collapse">
+<h6 class="mb-0">Week 5: 1D Dynamic Programming</h6>
+</div>
+<div class="collapse" id="week5">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Climbing Stairs</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/climbing-stairs/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Frog 1</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-primary">AtCoder</span>
+<span class="badge bg-secondary">DP</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://atcoder.jp/contests/dp/tasks/dp_a')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">House Robber</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/house-robber/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Min Cost Climbing Stairs</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/min-cost-climbing-stairs/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Nth Tribonacci Number</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/n-th-tribonacci-number/')">Solve</button>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#week6" data-bs-toggle="collapse">
+<h6 class="mb-0">Week 6: 2D Dynamic Programming</h6>
+</div>
+<div class="collapse" id="week6">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Unique Paths</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/unique-paths/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Longest Common Subsequence</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/longest-common-subsequence/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Edit Distance</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-danger">Hard</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/edit-distance/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Coin Change</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/coin-change/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Target Sum</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/target-sum/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Knapsack Problem</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-warning">GeeksforGeeks</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1')">Solve</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#dpAdvanced" data-bs-toggle="collapse">
+<h6 class="mb-0">Advanced DP Challenges</h6>
+</div>
+<div class="collapse" id="dpAdvanced">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Longest Increasing Subsequence</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/longest-increasing-subsequence/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Palindromic Substrings</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/palindromic-substrings/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Partition Equal Subset Sum</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/partition-equal-subset-sum/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Burst Balloons</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-danger">Hard</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/burst-balloons/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Regular Expression Matching</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-danger">Hard</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/regular-expression-matching/')">Solve</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Phase 4: Graph Algorithms -->
+<div class="card mb-4" id="phase4">
+<div class="card-header phase-header" data-bs-target="#phase4Content" data-bs-toggle="collapse">
+<h5 class="mb-0">🌐 Phase 4: Graph Algorithms (August 31 - September 27)</h5>
+</div>
+<div class="collapse" id="phase4Content">
+<div class="card-body">
+<!-- Learning Videos -->
+<div class="card mb-3">
+<div class="card-header bg-success text-white">
+<h6 class="mb-0">📹 Essential Learning Videos</h6>
+</div>
+<div class="card-body">
+<div class="video-grid">
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-danger mb-2">📹 Video</span>
+<h6>Graph Theory Complete Course</h6>
+<p class="small text-muted">BFS, DFS, Dijkstra, MST algorithms</p>
+<a class="btn btn-sm btn-danger w-100" href="https://www.youtube.com/watch?v=09_LlHjoEiY" target="_blank">Watch</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-info mb-2">📖 Doc</span>
+<h6>Graph Algorithms Guide</h6>
+<p class="small text-muted">Comprehensive graph theory documentation</p>
+<a class="btn btn-sm btn-info w-100" href="https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/" target="_blank">Read</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-warning mb-2">📹 Video</span>
+<h6>Tree Algorithms Masterclass</h6>
+<p class="small text-muted">Tree traversal, LCA, tree DP</p>
+<a class="btn btn-sm btn-warning w-100" href="https://www.youtube.com/watch?v=oSWTXtMglKE" target="_blank">Learn</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-secondary mb-2">📹 Video</span>
+<h6>Shortest Path Algorithms</h6>
+<p class="small text-muted">Dijkstra, Bellman-Ford, Floyd-Warshall</p>
+<a class="btn btn-sm btn-secondary w-100" href="https://www.youtube.com/watch?v=pVfj6mxhdMw" target="_blank">Master</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#week7" data-bs-toggle="collapse">
+<h6 class="mb-0">Week 7: Graph Basics - BFS &amp; DFS</h6>
+</div>
+<div class="collapse" id="week7">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">BFS of Graph</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-warning">GeeksforGeeks</span>
+<span class="badge bg-info">Basic</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://practice.geeksforgeeks.org/problems/bfs-traversal-of-graph/1')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Number of Islands</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/number-of-islands/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">DFS of Graph</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-warning">GeeksforGeeks</span>
+<span class="badge bg-info">Basic</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://practice.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Rotting Oranges</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/rotting-oranges/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Course Schedule</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/course-schedule/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Pacific Atlantic Water Flow</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/pacific-atlantic-water-flow/')">Solve</button>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#week8" data-bs-toggle="collapse">
+<h6 class="mb-0">Week 8: Shortest Path Algorithms</h6>
+</div>
+<div class="collapse" id="week8">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Network Delay Time</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/network-delay-time/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Cheapest Flights Within K Stops</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/cheapest-flights-within-k-stops/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Path With Minimum Effort</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/path-with-minimum-effort/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Dijkstra Algorithm</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-warning">GeeksforGeeks</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://practice.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Bellman-Ford Algorithm</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-warning">GeeksforGeeks</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://practice.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/1')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Floyd Warshall</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-warning">GeeksforGeeks</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://practice.geeksforgeeks.org/problems/implementing-floyd-warshall2042/1')">Solve</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Phase 5: Advanced Topics -->
+<div class="card mb-4" id="phase5">
+<div class="card-header phase-header" data-bs-target="#phase5Content" data-bs-toggle="collapse">
+<h5 class="mb-0">🚀 Phase 5: Advanced Topics &amp; Contest Prep (Sept 28 - Oct 25)</h5>
+</div>
+<div class="collapse" id="phase5Content">
+<div class="card-body">
+<!-- Learning Videos -->
+<div class="card mb-3">
+<div class="card-header bg-success text-white">
+<h6 class="mb-0">📹 Essential Learning Videos</h6>
+</div>
+<div class="card-body">
+<div class="video-grid">
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-danger mb-2">📹 Video</span>
+<h6>Segment Trees &amp; Fenwick Trees</h6>
+<p class="small text-muted">Range query data structures</p>
+<a class="btn btn-sm btn-danger w-100" href="https://www.youtube.com/watch?v=Oq2E2yGadnU" target="_blank">Watch</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-info mb-2">📖 Doc</span>
+<h6>Advanced Data Structures</h6>
+<p class="small text-muted">Segment tree, Fenwick tree documentation</p>
+<a class="btn btn-sm btn-info w-100" href="https://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/" target="_blank">Read</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-secondary mb-2">📹 Video</span>
+<h6>Number Theory &amp; Modular Arithmetic</h6>
+<p class="small text-muted">GCD, LCM, prime numbers, modular operations</p>
+<a class="btn btn-sm btn-secondary w-100" href="https://www.youtube.com/watch?v=UTVg7wzMWnU" target="_blank">Learn</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#week9" data-bs-toggle="collapse">
+<h6 class="mb-0">Week 9: Segment Trees &amp; Advanced DS</h6>
+</div>
+<div class="collapse" id="week9">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Range Sum Query</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/range-sum-query-immutable/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Binary Indexed Tree</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-warning">GeeksforGeeks</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://practice.geeksforgeeks.org/problems/binary-indexed-tree-1587115620/1')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Segment Tree Build</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-warning">GeeksforGeeks</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://practice.geeksforgeeks.org/problems/segment-tree/1')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Range Sum Query 2D</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/range-sum-query-2d-immutable/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Count of Range Sum</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-danger">Hard</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/count-of-range-sum/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Sliding Window Maximum</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-danger">Hard</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/sliding-window-maximum/')">Solve</button>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#week10" data-bs-toggle="collapse">
+<h6 class="mb-0">Week 10: Advanced Data Structures</h6>
+</div>
+<div class="collapse" id="week10">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Trie Implementation</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/implement-trie-prefix-tree/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">LRU Cache</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/lru-cache/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Design Twitter</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/design-twitter/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Disjoint Set Union (DSU)</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-warning">GeeksforGeeks</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://practice.geeksforgeeks.org/problems/disjoint-set-union-find/1')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Min Stack</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-warning">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/min-stack/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Design HashMap</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Easy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/design-hashmap/')">Solve</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Final Phase: Contest Preparation -->
+<div class="card mb-4" id="phase6">
+<div class="card-header phase-header" data-bs-target="#phase6Content" data-bs-toggle="collapse">
+<h5 class="mb-0">🏆 Final Phase: Contest Preparation (Oct 26 - Nov 16)</h5>
+</div>
+<div class="collapse" id="phase6Content">
+<div class="card-body">
+<!-- Learning Videos -->
+<div class="card mb-3">
+<div class="card-header bg-success text-white">
+<h6 class="mb-0">📹 Contest Strategy &amp; Tips</h6>
+</div>
+<div class="card-body">
+<div class="video-grid">
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-danger mb-2">📹 Video</span>
+<h6>Contest Strategy &amp; Time Management</h6>
+<p class="small text-muted">How to approach contests effectively</p>
+<a class="btn btn-sm btn-danger w-100" href="https://www.youtube.com/watch?v=bVKHRtafgPc" target="_blank">Watch</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-info mb-2">📖 Doc</span>
+<h6>Competitive Programming Tips</h6>
+<p class="small text-muted">Best practices and common mistakes</p>
+<a class="btn btn-sm btn-info w-100" href="https://www.geeksforgeeks.org/competitive-programming-cp-handbook-with-complete-roadmap/" target="_blank">Read</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-warning mb-2">📹 Video</span>
+<h6>Debugging Techniques</h6>
+<p class="small text-muted">How to debug efficiently during contests</p>
+<a class="btn btn-sm btn-warning w-100" href="https://www.youtube.com/watch?v=K29hJLCZ51U" target="_blank">Learn</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#week11" data-bs-toggle="collapse">
+<h6 class="mb-0">Week 11-12: Mock Contests &amp; Mixed Practice</h6>
+</div>
+<div class="collapse" id="week11">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Virtual Contest 1</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-purple">Codeforces</span>
+<span class="badge bg-success">Contest</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://codeforces.com/contests')">Practice</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">CodeChef Long Challenge</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-dark">CodeChef</span>
+<span class="badge bg-success">Contest</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://www.codechef.com/contests')">Practice</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">AtCoder Beginner Contest</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-primary">AtCoder</span>
+<span class="badge bg-success">Contest</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://atcoder.jp/contests/')">Practice</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Google Kick Start Archive</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-danger">Google</span>
+<span class="badge bg-success">Contest</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://codingcompetitions.withgoogle.com/kickstart/archive')">Practice</button>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Links -->
+<div class="card mb-4">
+<div class="card-header bg-info text-white">
+<h6 class="mb-0">🔗 Quick Links &amp; Resources</h6>
+</div>
+<div class="card-body">
+<div class="row g-2">
+<div class="col-md-3">
+<a class="btn btn-outline-primary w-100" href="https://codeforces.com/" target="_blank">Codeforces</a>
+</div>
+<div class="col-md-3">
+<a class="btn btn-outline-success w-100" href="https://leetcode.com/" target="_blank">LeetCode</a>
+</div>
+<div class="col-md-3">
+<a class="btn btn-outline-info w-100" href="https://atcoder.jp/" target="_blank">AtCoder</a>
+</div>
+<div class="col-md-3">
+<a class="btn btn-outline-warning w-100" href="https://www.codechef.com/" target="_blank">CodeChef</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Extra Phase: Additional Practice -->
+<div class="card mb-4" id="phaseExtra">
+<div class="card-header phase-header" data-bs-target="#phaseExtraContent" data-bs-toggle="collapse">
+<h5 class="mb-0">🛠️ Extra Phase: Bonus Practice &amp; Concepts</h5>
+</div>
+<div class="collapse" id="phaseExtraContent">
+<div class="card-body">
+<!-- Learning Videos -->
+<div class="card mb-3">
+<div class="card-header bg-success text-white">
+<h6 class="mb-0">📹 Bonus Learning Videos</h6>
+</div>
+<div class="card-body">
+<div class="video-grid">
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-danger mb-2">📹 Video</span>
+<h6>Greedy Algorithms Explained</h6>
+<p class="small text-muted">Understand and apply greedy strategies</p>
+<a class="btn btn-sm btn-danger w-100" href="https://www.youtube.com/watch?v=ARf9TL3hdIU" target="_blank">Watch</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-warning mb-2">📹 Video</span>
+<h6>Recursion &amp; Backtracking</h6>
+<p class="small text-muted">Fundamentals and real problem examples</p>
+<a class="btn btn-sm btn-warning w-100" href="https://www.youtube.com/watch?v=zgz3hFx4HkY" target="_blank">Learn</a>
+</div>
+</div>
+<div class="card h-100">
+<div class="card-body p-3">
+<span class="badge bg-info mb-2">📹 Video</span>
+<h6>Bit Manipulation Tricks</h6>
+<p class="small text-muted">Tips for solving problems using bits</p>
+<a class="btn btn-sm btn-info w-100" href="https://www.youtube.com/watch?v=7KmzMJqjk2Q" target="_blank">Explore</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bonus Questions -->
+<div class="card mb-3">
+<div class="card-header" data-bs-target="#extraProblems" data-bs-toggle="collapse">
+<h6 class="mb-0">Extra Problems: Mixed Topics</h6>
+</div>
+<div class="collapse" id="extraProblems">
+<div class="card-body">
+<div class="row g-2">
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">N Meetings in One Room</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-warning">GeeksforGeeks</span>
+<span class="badge bg-info">Greedy</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Subsets (Backtracking)</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-secondary">Medium</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/subsets/')">Solve</button>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-6">
+<div class="card problem-card h-100" onclick="toggleSolved(this)">
+<div class="card-body p-3">
+<h6 class="card-title">Single Number</h6>
+<div class="d-flex justify-content-between mb-2">
+<span class="badge bg-success">LeetCode</span>
+<span class="badge bg-info">Bit Manipulation</span>
+</div>
+<button class="btn btn-sm btn-primary w-100" onclick="event.stopPropagation();openProblem('https://leetcode.com/problems/single-number/')">Solve</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    // No collapse functionality needed
+</script>
+
+<script>
+        let solvedProblems = new Set();
+        let totalProblems = document.querySelectorAll('.problem-card').length;
+
+        function toggleSolved(card) {
+            card.classList.toggle('solved');
+            const title = card.querySelector('.card-title').textContent;
+            
+            if (card.classList.contains('solved')) {
+                solvedProblems.add(title);
+            } else {
+                solvedProblems.delete(title);
+            }
+            updateStats();
+        }
+
+        function updateStats() {
+            const solved = solvedProblems.size;
+            const rate = Math.round((solved / totalProblems) * 100);
+            
+            document.getElementById('solvedCount').textContent = solved;
+            document.getElementById('successRate').textContent = rate + '%';
+            document.getElementById('progressPercent').textContent = rate;
+            document.getElementById('progressFill').style.width = rate + '%';
+        }
+
+        function openProblem(url) {
+            window.open(url, '_blank');
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const problemCards = document.querySelectorAll('.problem-card');
+            
+            problemCards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const parent = card.closest('.col-lg-4, .col-md-6');
+                if (parent) {
+                    parent.style.display = title.includes(searchTerm) ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Initialize stats
+        updateStats();
+
+        // Day counter (starts from June 8, 2024)
+        const startDate = new Date('2024-06-08');
+        const today = new Date();
+        const daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
+        document.getElementById('currentDay').textContent = Math.max(1, Math.min(112, daysPassed));
+        
+        // No collapse functionality needed
+    </script>
+</body>
+</html>
